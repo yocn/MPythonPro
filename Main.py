@@ -2,5 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import testVariable
+import testCondition
 
-testVariable.test()
+# testVariable.test()
+testCondition.test()
