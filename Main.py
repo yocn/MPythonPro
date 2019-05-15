@@ -6,9 +6,11 @@ import testCondition
 import testForWhile
 import testNumber
 import testString
+import testCrawler
 
 # testVariable.test()
 # testCondition.test()
 # testForWhile.test()
 # testNumber.test()
-testString.test()
+# testString.test()
+testCrawler.test()
