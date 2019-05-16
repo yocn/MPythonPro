@@ -8,7 +8,7 @@ from testNumber import *
 from testString import *
 from testCrawler import *
 from testModule import *
-from testSys import *
 from testFile import *
+from testSys import *
 
 test()
