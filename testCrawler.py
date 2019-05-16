@@ -28,8 +28,8 @@ def test():
 
     html_doc = ""
     soup = bs4.BeautifulSoup(html, "html.parser", from_encoding="utf-8")
-    # print soup.prettify()
-    # print soup.p
+    print soup.prettify()
+    print "-------------------------------------------------------------"
     # print soup.title()
     # print soup.head()
     # links = soup.find_all('title')
@@ -46,15 +46,17 @@ def test():
     soup.a['href'] = 'http://www.baidu.com/'
 
     ##输出第一个  p 标签的所有子节点
-    print soup.p.contents
+    print "soup.p.contents->", soup.p.contents
 
     # 输出第一个  a 标签
-    print soup.a
+    print  soup.a
 
     # 输出所有的  a 标签，以列表形式显示
+    print "soup.find_all('a')->"
     print soup.find_all('a')
 
     # 输出第一个 id 属性等于  link3 的  a 标签
+    print "soup.find(id=\"link3\")->"
     print soup.find(id="link3")
 
     # 获取所有文字内容

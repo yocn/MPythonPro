@@ -1,16 +1,14 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import testVariable
-import testCondition
-import testForWhile
-import testNumber
-import testString
-import testCrawler
+from testVariable import *
+from testCondition import *
+from testForWhile import *
+from testNumber import *
+from testString import *
+from testCrawler import *
+from testModule import *
+from testSys import *
+from testFile import *
 
-# testVariable.test()
-# testCondition.test()
-# testForWhile.test()
-# testNumber.test()
-# testString.test()
-testCrawler.test()
+test()
