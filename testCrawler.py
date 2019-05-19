@@ -8,25 +8,25 @@ from bs4 import BeautifulSoup
 
 
 def test():
-    url = "https://zhuanlan.zhihu.com/p/65551350"
+    url = "https://www.zhihu.com/question/35005800/answer/61498512"
     response1 = urllib2.urlopen(url)
-    # print response1.read()
+
+    html = response1.read()
     # print response1.getcode()
 
-    html = """
-    <html>
-    <head><title>The Dormouse's story</title></head>
-    <body>
-    <p class="title" name="dromouse"><b>The Dormouse's story</b></p>
-    <p class="story">Once upon a time there were three little sisters; and their names were
-    <a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>,
-    <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
-    <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
-    and they lived at the bottom of a well.</p>
-    <p class="story">...</p>
-    """
+    # html = """
+    # <html>
+    # <head><title>The Dormouse's story</title></head>
+    # <body>
+    # <p class="title" name="dromouse"><b>The Dormouse's story</b></p>
+    # <p class="story">Once upon a time there were three little sisters; and their names were
+    # <a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>,
+    # <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
+    # <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
+    # and they lived at the bottom of a well.</p>
+    # <p class="story">...</p>
+    # """
 
-    html_doc = ""
     soup = bs4.BeautifulSoup(html, "html.parser", from_encoding="utf-8")
     print soup.prettify()
     print "-------------------------------------------------------------"
