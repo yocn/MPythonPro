@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-from crawler.testCrawlerZhihu import *
-from crawler.testCrawlerMM131 import *
+# from crawler.testCrawlerZhihu import *
+# from crawler.testCrawlerMM131 import *
+#
+# test()
+import sys
+sys.path.append('/crawler')
+from testClass import *
+from sqlite.testSQLite import *
 
 test()

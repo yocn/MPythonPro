@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+import time
 
 def test():
     # --------------------------String----------------------
@@ -18,4 +19,8 @@ def test():
     j = '''Hi
     change Line'''  # 换行
     print(a, b, c, d, e, f, g, h, i, j)
+
+    i = 10
+    print i * 2
+    print time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
     return

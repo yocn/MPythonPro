@@ -17,20 +17,19 @@ class Pic:
     #     return "File(" + self.path + " " + self.desc + " " + self.name + ")\n"
 
 
-locol = "/Users/y/PythonWorkSpace/mm131/"
+locol = "/Users/yocn/python/res/MM131/"
 
 
 def test():
     # 3000-4900
-    start_index = 3016
-    end_index = 3017
+    start_index = 3017
+    end_index = 3018
     for i in range(start_index, end_index):
         download_mmm131(i)
     return
 
 
 def download_mmm131(index):
-
     for i in range(2, 3):
         if i == 1:
             url = "http://www.mm131.com/xinggan/%d.html" % index
@@ -40,6 +39,10 @@ def download_mmm131(index):
         request = urllib2.Request(url)  # Request参数有三个，url,data,headers,如果没有data参数，那就得按我这样的写法
         request.add_header("User-Agent",
                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36")
+        request.add_header("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,fr;q=0.6")
+        request.add_header("Accept",
+                           "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3")
+
         html = urllib2.urlopen(request).read()
 
         # html = urllib2.urlopen(url).read()
@@ -50,7 +53,6 @@ def download_mmm131(index):
         all_img = soup.find_all("img")
         pic_list = []
         current_dir = locol + "" + str(index) + "/"
-        # 如果img标签里面含有data-original属性则把data-original标签的内容也就是http链接地址存储到img_list中
         img = all_img[0]
         print img
         if "src" in img.attrs:
@@ -65,5 +67,5 @@ def download_mmm131(index):
             print "开始下载", pic.path, pic.name
             # print "开始下载", (img)
             urllib.urlretrieve(pic.path, pic.name)
-        time.sleep(1)
+        time.sleep(3)
     return
