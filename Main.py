@@ -9,5 +9,7 @@ import sys
 sys.path.append('/crawler')
 from testClass import *
 from sqlite.testSQLite import *
+from crawler.testCrawlerMM131 import *
+from crawler.testCrawlerLSM import *
 
 test()
