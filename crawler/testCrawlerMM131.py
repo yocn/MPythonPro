@@ -18,12 +18,13 @@ class Pic:
 
 
 locol = "/Users/yocn/python/res/MM131/"
+locol = "/Users/y/PythonWorkSpace/"
 
 
 def test():
     # 3000-4900
-    start_index = 3017
-    end_index = 3018
+    start_index = 3018
+    end_index = 3019
     for i in range(start_index, end_index):
         download_mmm131(i)
     return
