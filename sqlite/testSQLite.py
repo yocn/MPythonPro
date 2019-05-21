@@ -3,6 +3,7 @@
 import sqlite3
 from SQLiteHelper import *
 from InfoBean import *
+from random import *
 
 
 def test():
@@ -12,9 +13,10 @@ def test():
     # print("打开了数据库")
     # 打开数据库后 就可以用 create 函数创建表
     create(conn)
-    for i in range(8, 10):
-        info = InfoBean(0, "name" + str(i), "url" + str(i), "status", "path", "desc")
+    for i in range(8, 18):
+        info = InfoBean(0, "name" + str(i), "url" + str(randint(0, 100)), "status", "path", "desc")
         insert_info(conn, info)
+
     # info1 = select(conn, "name1")
     # info2 = select(conn, "name")
     # print info1, info2
