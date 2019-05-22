@@ -5,11 +5,14 @@
 # from crawler.testCrawlerMM131 import *
 #
 # test()
-import sys
-sys.path.append('/crawler')
-from testClass import *
-from sqlite.testSQLite import *
-from crawler.testCrawlerMM131 import *
+# import sys
+# sys.path.append('/crawler')
+# from testClass import *
+# from sqlite.testSQLite import *
+# from crawler.testCrawlerMM131 import *
 from crawler.testCrawlerLSM import *
+from crawler.testCrawlerDuowan import *
+# from testCGI import *
 
 test()
+
