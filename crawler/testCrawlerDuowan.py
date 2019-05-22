@@ -51,19 +51,24 @@ def download_pic(index):
     if response.code != 200:
         return
     html = response.read()
-    raw = json.dumps(html)
-    print html
-    print "------------------------------------------------------------------------------------------"
-    print raw
     dict = json.loads(html, encoding="GBK")
     # print raw.keys()
-    print dict[u'picInfo']
+    # print dict[u'picInfo']
+    pic_list = []
+    pic_info = dict[u'picInfo']
+    current_dir = locol + "" + str(index) + "/"
+    for info in pic_info:
+        source = info[u'source']
+        desc = info[u'add_intro']
+        path = current_dir + desc + ".gif";
+        pic = Pic(source, desc, path)
+        pic_list.append(pic)
 
-    # for pic in pic_list:
-    #     if not os.path.exists(current_dir):
-    #         os.mkdir(current_dir)
-    #     print "-------------开始下载---------------", pic.url, pic.path
-    #     urllib.urlretrieve(pic.url, pic.path)
+    for pic in pic_list:
+        if not os.path.exists(current_dir):
+            os.mkdir(current_dir)
+        print "-------------开始下载---------------", pic.url, pic.path
+        urllib.urlretrieve(pic.url, pic.path)
 
     time.sleep(3)
     return
