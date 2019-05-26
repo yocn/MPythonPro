@@ -25,8 +25,8 @@ class Pic:
 
 def test():
     # download_text(textUrl)
-    # download_pic(picUrl, 1)
-    analyzingTextUrl()
+    download_pic(picUrl, 1)
+    # analyzingTextUrl()
     return
 
 
