@@ -14,6 +14,7 @@
 # from crawler.testCrawlerDuowan import *
 from crawler.se0343.downloadPic import *
 # from crawler.testHttps import *
+# from crawler.testDownload import *
 # from testCGI import *
 
 test()

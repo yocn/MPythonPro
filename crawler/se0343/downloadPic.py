@@ -6,14 +6,16 @@ import urllib2, time, bs4, ssl, os, urllib
 locol = "/Users/y/PythonWorkSpace/se0343/text/"
 locolPic = "/Users/y/PythonWorkSpace/se0343/pic/"
 
-index = 1  # 范围1~28
-picUrlIds = (8, 9, 10, 11, 12, 13, 14, 39)
+index = 1  # 范围1~28  下载到 8 9
+picUrlIds = (9, 10, 11, 12, 13, 14, 39)
 picurl = "https://www.se0343.com:2087/news-show-id-%s-p-%s.html" % (8, index)
 url = "https://www.se0343.com:2087/news-show-id-12-p-28.html"
 textUrl = "https://www.se0343.com:2087/news-read-id-10795.html"
 picUrl = "https://www.se0343.com:2087/news-read-id-10488.html"
 
 picBaseUrl = "https://www.se0343.com:2087"
+
+testPic = "https://www.se0343.com:2087/Uploads/images/xqcbjkia/346911.jpg"
 
 
 class Pic:
@@ -25,8 +27,10 @@ class Pic:
 
 def test():
     # download_text(textUrl)
+    # downSinglePic(testPic, "te.jpg")
     # download_pic(picUrl, 1)
-    analyzingTextUrl()
+    # analyzingTextUrl()
+    analizingPic()
     return
 
 
@@ -126,8 +130,60 @@ def download_text(rootDir, url, i, j):
     return
 
 
-def download_pic(url, index):
-    print "开始执行Task 下载图片 %s" % url
+def analizingPic():
+    picUrlIds = (9, 10, 11, 12, 13, 14, 39)
+    for id in picUrlIds:
+        currentDir = locolPic + str(id) + "/"
+        if not os.path.exists(currentDir):
+            os.mkdir(currentDir)
+        for index in range(7, 29):
+            picurl = "https://www.se0343.com:2087/news-show-id-%s-p-%s.html" % (id, index)
+            getPicPicUrl(currentDir, picurl, id, index)
+
+
+def getPicPicUrl(rootDir, pic_url, i, j):
+    print pic_url, i, j
+    baseTextUrl = "https://www.se0343.com:2087"
+    webheader = {
+        'Accept': 'text/html, application/xhtml+xml, */*',
+        # 'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
+        'DNT': '1',
+        'Connection': 'Keep-Alive',
+        'Host': 'www.se0343.com'
+        # 'Host': 'www.douban.com'
+    }
+
+    context = ssl._create_unverified_context()
+    req = urllib2.Request(url=pic_url, headers=webheader)
+    response = urllib2.urlopen(req, context=context)
+
+    if response.code != 200:
+        return
+    html = response.read().decode('utf-8')
+    if html.strip() == '':
+        return
+    soup = bs4.BeautifulSoup(html, "html.parser")
+    asa = soup.find_all("a")
+    for a in asa:
+        if not a.get('title') == None:
+            href = a['href']
+            title = a['title']
+            titleDir = rootDir + title + "/"
+            titleDir = titleDir.encode("utf-8")
+            if not os.path.exists(titleDir):
+                os.mkdir(titleDir)
+            realHref = baseTextUrl + href
+            # print realHref
+            download_pic(titleDir, realHref.encode("utf-8"), i, j)
+    time.sleep(0.3)
+
+
+def download_pic(rootDir, url, i, j):
+    if not os.path.exists(rootDir):
+        os.mkdir(rootDir)
+    print "下载图片目录 %s  url:%s %d %d" % (rootDir, url, i, j)
     webheader = {
         'Accept': 'text/html, application/xhtml+xml, */*',
         # 'Accept-Encoding': 'gzip, deflate',
@@ -148,17 +204,15 @@ def download_pic(url, index):
     html = response.read().decode('utf-8')
     if html.strip() == '':
         return
-    soup = bs4.BeautifulSoup(html, "html.parser", from_encoding="utf-8")
+    soup = bs4.BeautifulSoup(html, "html.parser")
     pic_list = []
-
-    current_dir = locolPic + "" + str(index) + "/"
 
     h1s = soup.find_all("h1")
     for h1 in h1s:
         if "class" in h1.attrs:
             if 'text-overflow' in h1.attrs['class']:
                 title = h1.contents[0]
-                fileName = current_dir + title + ".jpg"
+                fileName = rootDir + title.encode("utf-8") + ".jpg"
                 print fileName
 
     imgs = soup.find_all("img")
@@ -170,7 +224,6 @@ def download_pic(url, index):
             realPicUrl = realPicUrl.encode("utf-8")
             desc = realPicUrl[-10: -4]
             realFileName = fileName[0:-4] + desc + ".jpg"
-            print realFileName
             # fileName = fileName.encode("utf-8")
             pic = Pic(realPicUrl,
                       desc,
@@ -179,14 +232,26 @@ def download_pic(url, index):
             pic_list.append(pic)
 
     for pic in pic_list:
-        if not os.path.exists(current_dir):
-            os.mkdir(current_dir)
-        print "开始下载", pic.url, pic.path
-        # urllib.urlretrieve(pic.url, pic.path, context=context)
+        downSinglePic(pic.url, pic.path)
 
-        req = urllib2.Request(url=url, headers=webheader, unverifiable=False)
-        f = urllib2.urlopen(req, context=context)
-        # f = urllib2.urlopen(pic.url)
-        with open(pic.path, "wb") as code:
-            print "方式2", pic.url, pic.path
-            code.write(f.read())
+
+def downSinglePic(url, name):
+    print url, name
+    webheader = {
+        'Accept': 'text/html, application/xhtml+xml, */*',
+        # 'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
+        'DNT': '1',
+        'Connection': 'Keep-Alive',
+        'Host': 'www.se0343.com'
+        # 'Host': 'www.douban.com'
+    }
+
+    context = ssl._create_unverified_context()
+    req = urllib2.Request(url=url, headers=webheader)
+    f = urllib2.urlopen(req, context=context)
+
+    data = f.read()
+    with open(name, "wb") as code:
+        code.write(data)
