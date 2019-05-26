@@ -3,8 +3,6 @@
 
 import urllib2, urllib, os, time, json
 
-print str(time.time()).replace(".", "0")
-
 
 class Pic:
     def __init__(self, url, desc, path):
