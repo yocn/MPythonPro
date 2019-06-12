@@ -12,9 +12,10 @@
 # from crawler.testCrawlerMM131 import *
 # from crawler.testCrawlerLSM import *
 # from crawler.testCrawlerDuowan import *
-from crawler.se0343.downloadPic import *
+# from crawler.se0343.downloadPic import *
 # from crawler.testHttps import *
 # from crawler.testDownload import *
 # from testCGI import *
 
-test()
+# test()
+from wechat.wechat import *
