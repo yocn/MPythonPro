@@ -18,4 +18,7 @@
 # from testCGI import *
 
 # test()
-from wechat.wechat import *
+# from wechat.wechat import *
+from imageServer.updateImage import *
+uploadImage("")
+
